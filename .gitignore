@@ -1,0 +1,11 @@
+# Python
+*.pyc
+__pycache__/
+venv*/
+*.egg-info/
+# Data
+data/resale_transactions.csv
+# Outputs
+outputs/
+# Jupyter
+.ipynb_checkpoints/

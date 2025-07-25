@@ -1,0 +1,89 @@
+data:
+  file: "./data/resale_transactions.csv"
+  target: "resale_price"
+  drop:
+    #- "remaining_lease"
+    #- "lease_commence_date"
+    - "block"
+    - "street_name"
+  features:
+    - "month"
+    - "flat_type"
+    - "storey_range"
+    - "floor_area_sqm"
+    - "town_name"
+    - "flatm_name"
+    - "year"
+    - "remaining_lease_months"
+
+splitting:
+  train_size: 0.8
+  val_size: 0.5
+  val_test_size: 0.2
+  test_size: 0.5
+  random_seed: 42
+
+processing:
+  numerical:
+    - "floor_area_sqm"
+    - "remaining_lease_months"
+    - lease_commence_date
+    - "year"
+  nominal:
+    - "month"
+    - "town_name"
+    - "flatm_name"
+  ordinal:
+    flat_type:
+      order:
+        - "1 ROOM"
+        - "2 ROOM"
+        - "3 ROOM"
+        - "4 ROOM"
+        - "5 ROOM"
+        - "MULTI-GENERATION"
+        - "EXECUTIVE"
+  passthrough:
+    - "storey_range"
+  scaler: "StandardScaler"
+
+
+models:
+  LinearRegression:
+    enabled: true
+  Ridge:
+    enabled: true
+    alpha: 1.0
+  Lasso:
+    enabled: true
+    alpha: 1.0
+    max_iter: 10000
+  ElasticNet:
+    enabled: true
+    alpha: 1.0
+    l1_ratio: 0.5
+
+tuning:
+  GridSearchCV:
+    enabled: true
+    parameters:
+      alpha: [0.1, 1, 10, 100, 1000]
+      fit_intercept: [true, false]
+    folds: 5
+    scoring: "r2"
+  RandomizedSearchCV:
+    enabled: true
+    parameters:
+      alpha: [0.1, 1, 10, 100, 1000]
+      fit_intercept: [true, false]
+    iterations: 10
+    folds: 5
+    scoring: "r2"
+    random_seed: 42
+
+evaluation:
+  metrics:
+    - "mean_absolute_error"
+    - "mean_squared_error"
+    - "root_mean_squared_error"
+    - "r2_score"
