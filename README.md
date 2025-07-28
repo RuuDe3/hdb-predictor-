@@ -2,9 +2,6 @@ HDB Resale Price Prediction
 Class-based ML pipeline for predicting HDB resale prices with baseline and tuned models.
 Setup
 
-Clone:git clone https://github.com/your-username/hdb-resale-prediction.git
-cd hdb-resale-prediction
-
 
 Install dependencies:pip install pandas numpy scikit-learn pyyaml joblib (requirements.txt)
 
