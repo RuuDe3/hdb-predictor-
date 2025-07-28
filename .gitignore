@@ -9,3 +9,5 @@ data/resale_transactions.csv
 outputs/
 # Jupyter
 .ipynb_checkpoints/
+# Logs
+output.log

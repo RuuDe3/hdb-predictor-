@@ -2,10 +2,11 @@ data:
   file: "./data/resale_transactions.csv"
   target: "resale_price"
   drop:
-    #- "remaining_lease"
-    #- "lease_commence_date"
     - "block"
     - "street_name"
+    - "id"
+    - "town_id"
+    - "flatm_id"
   features:
     - "month"
     - "flat_type"
@@ -13,8 +14,23 @@ data:
     - "floor_area_sqm"
     - "town_name"
     - "flatm_name"
-    - "year"
     - "remaining_lease_months"
+    - "lease_commence_date"
+  available_columns:
+    - "id"
+    - "month"
+    - "flat_type"
+    - "block"
+    - "street_name"
+    - "storey_range"
+    - "floor_area_sqm"
+    - "lease_commence_date"
+    - "remaining_lease"
+    - "resale_price"
+    - "town_id"
+    - "flatm_id"
+    - "town_name"
+    - "flatm_name"
 
 splitting:
   train_size: 0.8
@@ -27,8 +43,7 @@ processing:
   numerical:
     - "floor_area_sqm"
     - "remaining_lease_months"
-    - lease_commence_date
-    - "year"
+    - "lease_commence_date"
   nominal:
     - "month"
     - "town_name"
@@ -46,7 +61,6 @@ processing:
   passthrough:
     - "storey_range"
   scaler: "StandardScaler"
-
 
 models:
   LinearRegression:
@@ -87,3 +101,7 @@ evaluation:
     - "mean_squared_error"
     - "root_mean_squared_error"
     - "r2_score"
+
+output:
+  models: "outputs/models"
+  plots: "outputs/plots"
